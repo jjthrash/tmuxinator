@@ -152,10 +152,7 @@ describe Tmuxinator::Window do
     before do
       yaml["editor"]["root"] = "/project/tmuxinator/subdir"
       project.stub(
-        :name => "",
-        :tmux => "tmux",
-        :root => "/project/tmuxinator",
-        :base_index => 1
+        :root => "/project/tmuxinator"
       )
     end
 
