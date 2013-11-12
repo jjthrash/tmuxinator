@@ -144,4 +144,23 @@ describe Tmuxinator::Window do
       expect(window.tmux_new_window_command).to include("-c /project/tmuxinator")
     end
   end
+
+  describe "#tmux_new_window_command with explicit root" do
+    let(:project) { double(:project) }
+    let(:window) { Tmuxinator::Window.new(yaml, 0, project) }
+
+    before do
+      yaml["editor"]["root"] = "/project/tmuxinator/subdir"
+      project.stub(
+        :name => "",
+        :tmux => "tmux",
+        :root => "/project/tmuxinator",
+        :base_index => 1
+      )
+    end
+
+    it "specifies the window-specific root path by passing -c to tmux" do
+      expect(window.tmux_new_window_command).to include("-c /project/tmuxinator/subdir")
+    end
+  end
 end
